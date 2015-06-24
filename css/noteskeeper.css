@@ -1,0 +1,23 @@
+.wrapper {
+    max-width: 900px;
+}
+
+.notes__list {
+    padding: 0;
+    margin: 0;
+}
+
+.notes__i {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.note-preview__text {
+    margin: 10px 0 0;
+}
+
+.note-preview__time {
+    font-size: 12px;
+    color: #4f4f4f;
+}

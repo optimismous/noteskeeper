@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="notesKeeper">
+<head>
+    <title>Notes Keeper v.0.1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="css/noteskeeper.css" />
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-route.js"></script>
+    <script type="text/javascript" src="js/noteskeeper/helpers.js"></script>
+    <script type="text/javascript" src="js/noteskeeper/notes-storage.js"></script>
+    <script type="text/javascript" src="js/noteskeeper/app.js"></script>
+</head>
+<body ng-controller="NotesKeeperController as notesKeeper">
+    <div class="wrapper">
+        <h1>Noteskeeper</h1>
+        <form ng-submit="notesKeeper.addNote()">
+            <textarea ng-model="notesKeeper.noteText" name="editor" id="notefield" cols="30" rows="10"></textarea>
+            <div>
+                <button type="submit">add Note</button>
+            </div>
+        </form>
+        <h1>Your Notes</h1>
+        <div class="notes">
+            <ul class="notes__list" ng-repeat="note in notesKeeper.notes | orderBy: '-createdOn' track by $index">
+                <li class="notes__i">
+                    <div class="note-preview">
+                        <p class="note-preview__text">
+                            {{note.text}}
+                            <button type="button" ng-click="notesKeeper.removeNote(note)">
+                                Удалить заметку
+                            </button>
+                        </p>
+                        <time class="note-preview__time">{{note.timeAgo}}</time>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
