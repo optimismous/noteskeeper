@@ -1,0 +1,16 @@
+<h1>Your Notes</h1>
+<div class="notes">
+    <ol class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true track by note.createdOn">
+        <li class="notes__i">
+            <div class="note-preview">
+                <p class="note-preview__text">
+                    {{note.text}}
+                    <button type="button" ng-click="removeNote(noteId)">
+                        Удалить заметку
+                    </button>
+                </p>
+                <time class="note-preview__time" nk-timeago="{{note.createdOn}}"></time>
+            </div>
+        </li>
+    </ol>
+</div>

@@ -4,8 +4,6 @@
     app.controller('NotesKeeperController', function ($scope, $route, $routeParams, $location, $interval) {
         var notesKeeper = this;
 
-        console.log(this, $scope);
-
         notesKeeper.notes = notesStorage.getNotes();
 
         notesKeeper.addNote = function () {
