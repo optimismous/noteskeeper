@@ -10,12 +10,12 @@
             })
         }])
 
-        .controller('View1Ctrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
+        .controller('View1Ctrl', ['$rootScope', '$scope', 'notesStorage', function ($rootScope, $scope, notesStorage) {
 
             $scope.addNote = function () {
                 var text = $scope.noteText;
                 var tStamp = Date.now();
-                var key = '_' + tStamp.toString(16);
+                var key = $rootScope.getKeyFromStamp(tStamp);
 
                 if (!text || !text.trim()) return;
 
@@ -36,8 +36,9 @@
 
             };
 
-            $scope.removeNote = function (noteId) {
-                notesStorage.removeNote(noteId);
+            $scope.removeNote = function (createdOn) {
+                var key = $rootScope.getKeyFromStamp(createdOn);
+                notesStorage.removeNote(key);
             };
 
         }]);

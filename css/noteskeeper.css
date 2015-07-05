@@ -14,7 +14,7 @@
 }
 
 .note-preview__text {
-    margin: 10px 0 0;
+    margin: 0;
 }
 
 .note-preview__time {
@@ -30,13 +30,26 @@
     margin-left: 0;
 }
 
-.note-preview .glyphicon {
+.note-preview {
+    margin-bottom: 20px;
+}
+
+.note-preview__remove {
     float: left;
-    margin-top: 5px;
+    margin-top: 4px;
     margin-right: 6px;
     cursor: pointer;
 }
 
+.note-preview__content {
+    overflow: hidden;
+}
+
 .note-preview .glyphicon:hover {
     color: #e74c3c;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #ffffff;
 }
