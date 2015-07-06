@@ -1,53 +1,56 @@
-<div class="col-xs-7">
-    <div ng-controller="View1Ctrl">
-        <div class="well">
-            <form class="bs-component" ng-submit="addNote()">
-                <fieldset>
-                    <legend>
-                        Новая заметка
-                    </legend>
-                    <div class="form-group">
-                        <textarea
-                                ng-model="noteText"
-                                name="editor"
-                                class="form-control"
-                                id="notefield"
-                                cols="30"
-                                rows="7"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="reset" class="btn btn-default">Отмена</button>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-        <h4>Недавние заметки</h4>
-        <div class="notes">
-            <div class="well" ng-show="isNotesEmpty()">
-                У вас пока нет ни одной заметки
-            </div>
-            <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
-                <li class="notes__i">
-                    <div class="well note-preview">
-                        <span
-                            class="note-preview__remove glyphicon glyphicon-remove-sign"
-                            title="Удалить заметку"
-                            aria-hidden="true"
-                            ng-click="removeNote(note.createdOn)"
-                                ></span>
-                        <div class="note-preview__content">
-                            <p class="note-preview__text">
-                                {{note.text}}
-                            </p>
-                            <small class="text-info" nk-timeago="{{note.createdOn}}">{{note.createdOn | relativeTime}}</small>
+<div ng-include="'views/menu/menu.html'" ng-controller="menuCtrl"></div>
+<div class="wrapper">
+    <div class="col-xs-7">
+        <div ng-controller="View1Ctrl">
+            <div class="well">
+                <form class="bs-component" ng-submit="addNote()">
+                    <fieldset>
+                        <legend>
+                            Новая заметка
+                        </legend>
+                        <div class="form-group">
+                            <textarea
+                                    ng-model="noteText"
+                                    name="editor"
+                                    class="form-control"
+                                    id="notefield"
+                                    cols="30"
+                                    rows="7"></textarea>
                         </div>
-                    </div>
-                </li>
-            </ul>
-            <a ng-hide="isNotesEmpty()" href="#view2">
-                Весь список
-            </a>
+                        <div class="form-group">
+                            <button type="reset" class="btn btn-default">Отмена</button>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <h4>Недавние заметки</h4>
+            <div class="notes">
+                <div class="well" ng-show="isNotesEmpty()">
+                    У вас пока нет ни одной заметки
+                </div>
+                <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
+                    <li class="notes__i">
+                        <div class="well note-preview">
+                        <span
+                                class="note-preview__remove glyphicon glyphicon-remove-sign"
+                                title="Удалить заметку"
+                                aria-hidden="true"
+                                ng-click="removeNote(note.createdOn)"
+                                ></span>
+                            <div class="note-preview__content">
+                                <p class="note-preview__text">
+                                    {{note.text}}
+                                </p>
+                                <small class="text-info" nk-timeago="{{note.createdOn}}">{{note.createdOn | relativeTime}}</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <a ng-hide="isNotesEmpty()" href="#view2">
+                    Весь список
+                </a>
+            </div>
         </div>
     </div>
 </div>
