@@ -11,15 +11,19 @@
                         <div class="form-group">
                             <textarea
                                     ng-model="noteText"
+                                    ng-change="getRemainingSymbols()"
                                     name="editor"
                                     class="form-control"
                                     id="notefield"
+                                    maxlength="{{symbolsMax}}"
                                     cols="30"
                                     rows="7"></textarea>
                         </div>
                         <div class="form-group">
                             <button type="reset" class="btn btn-default">Отмена</button>
                             <button type="submit" class="btn btn-primary">Отправить</button>
+
+                            Символов осталось: {{remainingSymbols}}
                         </div>
                     </fieldset>
                 </form>

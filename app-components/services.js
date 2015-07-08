@@ -103,4 +103,24 @@ angular.module('notesKeeper')
                 return timestamp > todayMidnight && timestamp < todayMidnight + _24hoursInMs;
             }
         }
-    });
+    })
+
+    .service('noteActions', ['notesStorage', function (notesStorage) {
+
+        this.notes = notesStorage.getNotes();
+
+        this.isNotesEmpty = function () {
+            return angular.equals({}, this.notes);
+        };
+
+        this.notesAmount = Object.keys(this.notes).length;
+
+        this.getKeyFromStamp = function (tStamp) {
+            return '_' + tStamp.toString(16);
+        };
+
+        this.removeNote = function (createdOn) {
+           var key = this.getKeyFromStamp(createdOn);
+           notesStorage.removeNote(key);
+        }
+    }]);

@@ -8,15 +8,6 @@ angular.module('notesKeeper', [
 ])
 
 .run(['$rootScope', 'notesStorage', function ($rootScope, notesStorage) {
-    $rootScope.notes = notesStorage.getNotes();
-
-    $rootScope.getKeyFromStamp = function (tStamp) {
-        return '_' + tStamp.toString(16);
-    };
-
-    $rootScope.isNotesEmpty = function () {
-        return angular.equals({}, $rootScope.notes);
-    }
 }])
 
 .config(['$routeProvider', function ($routeProvider) {

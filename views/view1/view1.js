@@ -11,6 +11,12 @@ angular.module('notesKeeper.view1', ['ngRoute'])
 
     .controller('View1Ctrl', ['$rootScope', '$scope', 'notesStorage', function ($rootScope, $scope, notesStorage) {
 
+        $scope.remainingSymbols = $scope.symbolsMax = 150;
+
+        $scope.getRemainingSymbols = function () {
+            $scope.remainingSymbols = $scope.symbolsMax - $scope.noteText.length;
+        };
+
         $scope.addNote = function () {
             var text = $scope.noteText;
             var tStamp = Date.now();
@@ -32,12 +38,8 @@ angular.module('notesKeeper.view1', ['ngRoute'])
             }
 
             $scope.noteText = '';
+            $scope.remainingSymbols = $scope.symbolsMax;
 
-        };
-
-        $scope.removeNote = function (createdOn) {
-            var key = $rootScope.getKeyFromStamp(createdOn);
-            notesStorage.removeNote(key);
         };
 
     }]);

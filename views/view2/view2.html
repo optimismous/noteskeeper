@@ -4,22 +4,27 @@
         <h3>Ваши заметки</h3>
         <div class="notes">
             <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true track by note.createdOn">
-                <li class="notes__i">
-                    <div class="well note-preview">
+                <div class="well" ng-show="isNotesEmpty()">
+                    У вас пока нет ни одной заметки
+                </div>
+                <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
+                    <li class="notes__i">
+                        <div class="well note-preview">
                         <span
                                 class="note-preview__remove glyphicon glyphicon-remove-sign"
                                 title="Удалить заметку"
                                 aria-hidden="true"
                                 ng-click="removeNote(note.createdOn)"
                                 ></span>
-                        <div class="note-preview__content">
-                            <p class="note-preview__text">
-                                {{note.text}}
-                            </p>
-                            <small class="text-info" nk-timeago="{{note.createdOn}}">{{note.createdOn | relativeTime}}</small>
+                            <div class="note-preview__content">
+                                <p class="note-preview__text">
+                                    {{note.text}}
+                                </p>
+                                <small class="text-info" nk-timeago="{{note.createdOn}}">{{note.createdOn | relativeTime}}</small>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                </ul>
             </ul>
         </div>
     </div>

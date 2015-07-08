@@ -23,11 +23,7 @@
 }
 
 .form-group button {
-    margin-left: 4px;
-}
-
-.form-group button:first-child {
-    margin-left: 0;
+    margin-right: 4px;
 }
 
 .note-preview {
@@ -52,4 +48,10 @@
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #ffffff;
+}
+
+.nav .badge {
+    position: relative;
+    top: -3px;
+    left: 2px;
 }
