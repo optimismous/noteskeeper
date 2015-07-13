@@ -6,41 +6,51 @@ angular.module('notesKeeper')
         var notesStorage;
         var domStorage = localStorage;
         var notesKey = 'notes';
+        var notes;
 
-        notesStorage = {
-            _notes: {},
-            _init: function () {
-                try {
-                    this._notes = JSON.parse(domStorage[notesKey]);
-                } catch(e) {
-                    this._notes = {};
-                }
+        try {
+            notes = JSON.parse(domStorage[notesKey]);
+        } catch (e) {
+            notes = {};
+        }
 
-                return notesStorage;
+        notesStorage =  {
+            notes: notes,
+            getNotesAmount: function () {
+                return Object.keys(notesStorage.notes).length;
             },
             putNote: function (key, note) {
                 if (key && note instanceof Object) {
-                    this._notes[key] = note;
-                    domStorage[notesKey] = JSON.stringify(this._notes);
+                    notesStorage.notes[key] = note;
+                    domStorage[notesKey] = JSON.stringify(notesStorage.notes);
                     return true;
                 }
 
                 return false;
             },
             getNotes: function () {
-                return this._notes;
+                return notesStorage.notes;
             },
-            clear: function () {
+            clear: function (notesKey) {
                 domStorage.removeItem(notesKey);
             },
-            removeNote: function (key) {
-                delete this._notes[key];
+            removeNote: function (createdOn) {
+                var key = notesStorage.getKeyFromStamp(createdOn);
 
-                domStorage[notesKey] = JSON.stringify(this._notes);
+                delete notesStorage.notes[key];
+
+                domStorage[notesKey] = JSON.stringify(notesStorage.notes);
+            },
+            getKeyFromStamp: function (tStamp) {
+                return '_' + tStamp.toString(16);
+            },
+            isNotesEmpty: function () {
+                return angular.equals({}, notesStorage.notes);
             }
         };
 
-        return notesStorage._init();
+        return notesStorage;
+
     })
 
     .factory('helpers', function () {
@@ -103,24 +113,4 @@ angular.module('notesKeeper')
                 return timestamp > todayMidnight && timestamp < todayMidnight + _24hoursInMs;
             }
         }
-    })
-
-    .service('noteActions', ['notesStorage', function (notesStorage) {
-
-        this.notes = notesStorage.getNotes();
-
-        this.isNotesEmpty = function () {
-            return angular.equals({}, this.notes);
-        };
-
-        this.notesAmount = Object.keys(this.notes).length;
-
-        this.getKeyFromStamp = function (tStamp) {
-            return '_' + tStamp.toString(16);
-        };
-
-        this.removeNote = function (createdOn) {
-           var key = this.getKeyFromStamp(createdOn);
-           notesStorage.removeNote(key);
-        }
-    }]);
+    });

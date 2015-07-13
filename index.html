@@ -17,6 +17,22 @@
     <script type="text/javascript" src="app-components/services.js"></script>
 </head>
 <body>
+    <script type="text/ng-template" id="/notesItem.html">
+        <div class="well note-preview">
+            <span
+                class="note-preview__remove glyphicon glyphicon-remove-sign"
+                title="Удалить заметку"
+                aria-hidden="true"
+                ng-click="notesStorage.removeNote(note.createdOn)"
+                ></span>
+            <div class="note-preview__content">
+                <p class="note-preview__text">
+                    {{note.text}}
+                </p>
+                <small class="text-info" nk-timeago="{{note.createdOn}}">{{note.createdOn | relativeTime}}</small>
+            </div>
+        </div>
+    </script>
     <ng-view></ng-view>
 </body>
 </html>

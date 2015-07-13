@@ -8,6 +8,7 @@ angular.module('notesKeeper', [
 ])
 
 .run(['$rootScope', 'notesStorage', function ($rootScope, notesStorage) {
+    $rootScope.notesStorage = notesStorage;
 }])
 
 .config(['$routeProvider', function ($routeProvider) {

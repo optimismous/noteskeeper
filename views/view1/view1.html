@@ -30,28 +30,14 @@
             </div>
             <h4>Недавние заметки</h4>
             <div class="notes">
-                <div class="well" ng-show="isNotesEmpty()">
+                <div class="well" ng-show="notesStorage.isNotesEmpty()">
                     У вас пока нет ни одной заметки
                 </div>
-                <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
-                    <li class="notes__i">
-                        <div class="well note-preview">
-                        <span
-                                class="note-preview__remove glyphicon glyphicon-remove-sign"
-                                title="Удалить заметку"
-                                aria-hidden="true"
-                                ng-click="removeNote(note.createdOn)"
-                                ></span>
-                            <div class="note-preview__content">
-                                <p class="note-preview__text">
-                                    {{note.text}}
-                                </p>
-                                <small class="text-info" nk-timeago="{{note.createdOn}}">{{note.createdOn | relativeTime}}</small>
-                            </div>
-                        </div>
+                <ul class="notes__list" ng-repeat="(noteId, note) in notesStorage.notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
+                    <li class="notes__i" ng-include="'/notesItem.html'">
                     </li>
                 </ul>
-                <a ng-hide="isNotesEmpty()" href="#view2">
+                <a ng-hide="notesStorage.isNotesEmpty()" href="#view2">
                     Весь список
                 </a>
             </div>

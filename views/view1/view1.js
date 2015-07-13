@@ -20,12 +20,12 @@ angular.module('notesKeeper.view1', ['ngRoute'])
         $scope.addNote = function () {
             var text = $scope.noteText;
             var tStamp = Date.now();
-            var key = $rootScope.getKeyFromStamp(tStamp);
+            var key = $rootScope.notesStorage.getKeyFromStamp(tStamp);
 
             if (!text || !text.trim()) return;
 
-            if (!$rootScope.notes[key]) {
-                notesStorage.putNote(
+            if (!$rootScope.notesStorage.notes[key]) {
+                $rootScope.notesStorage.putNote(
                     key,
                     {
                         text: text.trim(),
