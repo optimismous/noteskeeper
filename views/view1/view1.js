@@ -29,8 +29,7 @@ angular.module('notesKeeper.view1', ['ngRoute'])
                     key,
                     {
                         text: text.trim(),
-                        createdOn: tStamp,
-                        timeAgo: 'Меньше минуты назад'
+                        createdOn: tStamp
                     }
                 );
             } else {
