@@ -9,7 +9,18 @@ angular.module('notesKeeper.view1', ['ngRoute'])
         })
     }])
 
-    .controller('View1Ctrl', ['$rootScope', '$scope', 'notesStorage', function ($rootScope, $scope, notesStorage) {
+    .controller('View1Ctrl',
+        ['$rootScope',
+         '$scope',
+         'notesStorage',
+         function ($rootScope, $scope, notesStorage) {
+
+        $scope.onKeydown = function (e) {
+            // При нажатии ctrl+enter добавляем заметку
+            if (e.ctrlKey === true && e.keyCode === 13) {
+                $scope.addNote();
+            }
+        };
 
         $scope.remainingSymbols = $scope.symbolsMax = 150;
 
