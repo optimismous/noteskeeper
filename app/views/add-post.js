@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('notesKeeper.view1', ['ngRoute'])
+angular.module('notesKeeper.addPost', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/view1', {
-            templateUrl: 'views/view1/view1.html',
-            controller: 'View1Ctrl'
+        $routeProvider.when('/add-post', {
+            templateUrl: 'app/views/add-post.html',
+            controller: 'AddPostCtrl'
         })
     }])
 
-    .controller('View1Ctrl',
+    .controller('AddPostCtrl',
         ['$rootScope',
          '$scope',
          'notesStorage',
@@ -39,7 +39,7 @@ angular.module('notesKeeper.view1', ['ngRoute'])
                 $rootScope.notesStorage.putNote(
                     key,
                     {
-                        text: text.trim(),
+                        text: text,
                         createdOn: tStamp
                     }
                 );

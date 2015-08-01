@@ -2,8 +2,8 @@
 
 angular.module('notesKeeper', [
     'ngRoute',
-    'notesKeeper.view1',
-    'notesKeeper.view2',
+    'notesKeeper.addPost',
+    'notesKeeper.postsList',
     'notesKeeper.menu'
 ])
 
@@ -12,5 +12,5 @@ angular.module('notesKeeper', [
 }])
 
 .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/view1'});
+    $routeProvider.otherwise({redirectTo: '/add-post'});
 }]);
