@@ -40,9 +40,9 @@ angular.module('notesKeeper')
                         ('0' + createdDate.getMinutes()).slice(-2);
                     return 'Вчера, в ' + outputTime;
                 default:
-                    month = createdDate.getMonth() + 1;
+                    month = createdDate.getMonth();
                     year = createdDate.getFullYear();
-                    return ('0' + monthDay).slice(-2) + ' ' +
+                    return monthDay + ' ' +
                         helpers.getMonthName(month, 'genitive') + ' ' + year + ' года';
             }
         };
