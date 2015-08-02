@@ -5,7 +5,7 @@
                 <form class="bs-component" ng-submit="addNote()">
                     <fieldset>
                         <legend>
-                            Новая заметка
+                            {{formTitle}}
                         </legend>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Заголовок (необязательно)" ng-model="title"/>
@@ -14,14 +14,15 @@
                             <textarea
                                     ng-model="noteText"
                                     ng-change="getRemainingSymbols()"
+                                    placeholder="Текст заметки (нажмите ctrl+enter чтобы отправить заметку)"
                                     name="editor"
                                     class="form-control"
                                     id="notefield"
                                     maxlength="{{symbolsMax}}"
                                     ng-keydown="onKeydown($event)"
                                     cols="30"
-                                    placeholder="Текст заметки"
-                                    rows="7"></textarea>
+                                    rows="7"
+                                    autofocus></textarea>
                         </div>
                         <div class="form-group">
                             <button type="reset" class="btn btn-default">Отмена</button>

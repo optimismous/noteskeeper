@@ -21,6 +21,15 @@
 </head>
 <body>
     <div ng-include="'app/views/menu.html'" ng-controller="menuCtrl"></div>
-    <ng-view></ng-view>
+    <div class="content-wrapper">
+        <ng-view></ng-view>
+    </div>
+    <footer class="footer">
+        <div class="col-xs-12 footer-inner">
+            <div class="text-muted">
+                Single Page NotesKeeper app, 2015
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

@@ -18,14 +18,18 @@ angular.module('notesKeeper.addPost', ['ngRoute'])
         var id = $routeParams.id || null;
         var editedNote;
 
+
+
         if (id) {
             editedNote = notesStorage.getNote(id);
         }
 
         if (editedNote) {
+            $scope.formTitle = 'Редактировать заметку';
             $scope.title = editedNote.title;
             $scope.noteText = editedNote.text;
         } else {
+            $scope.formTitle = 'Новая заметка';
             $scope.title = '';
             $scope.noteText = '';
         }

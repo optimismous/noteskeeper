@@ -27,20 +27,26 @@
 }
 
 .note-preview {
+    position: relative;
     margin-bottom: 20px;
 }
 
-.note-preview__controls {
-    float: left;
-    margin-top: 4px;
-    margin-right: 6px;
-}
-
-.note-preview__controls .glyphicon {
+.note-preview .glyphicon-remove-sign {
+    position: absolute;
+    top: 4px;
+    right: 8px;
     cursor: pointer;
 }
 
-.note-preview__controls .glyphicon:hover {
+.note-preview .glyphicon-pencil {
+    font-size: 14px;
+    position: absolute;
+    top: 3px;
+    right: 31px;
+    cursor: pointer;
+}
+
+.note-preview .glyphicon-pencil:hover {
     text-decoration: none;
 }
 
@@ -61,4 +67,14 @@
     position: relative;
     top: -3px;
     left: 2px;
+}
+
+.content-wrapper:after {
+    display: table;
+    content: "";
+    clear: both;
+}
+
+.footer-inner {
+    margin-top: 20px;
 }
