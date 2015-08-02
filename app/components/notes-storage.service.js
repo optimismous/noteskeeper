@@ -1,3 +1,23 @@
+/*
+    Хранилище заметок. Структура:
+    {
+        "notes": {
+          "metadata": {
+            "_lastId": Number
+          },
+          "_0": {
+            "title": String,
+            "text": String,
+            "createdOn": String,
+            "tags": Array
+          },
+          ...
+          "_x": Object
+        }
+    }
+
+ */
+
 'use strict';
 
 angular.module('notesKeeper')
@@ -9,43 +29,53 @@ angular.module('notesKeeper')
         var notes;
 
         try {
+            // todo: validation
             notes = JSON.parse(domStorage[notesKey]);
         } catch (e) {
-            notes = {};
+            notes = null;
+        }
+
+        if (!notes) {
+            notes = {
+                metadata: {
+                    lastId: 0
+                },
+                notesList: {}
+            };
         }
 
         notesStorage =  {
-            notes: notes,
+            _notes: notes,
             getNotesAmount: function () {
-                return Object.keys(notesStorage.notes).length;
+                return Object.keys(this._notes.notesList).length;
             },
-            putNote: function (key, note) {
-                if (key && note instanceof Object) {
-                    notesStorage.notes[key] = note;
-                    domStorage[notesKey] = JSON.stringify(notesStorage.notes);
-                    return true;
-                }
-
-                return false;
+            putNote: function (note) {
+                // Todo: validation
+                var id = this._generateId();
+                this._notes.notesList['_' + id] = note || {};
+                this._notes.notesList['_' + id].id = id;
+                domStorage[notesKey] = JSON.stringify(notesStorage._notes);
+                return true;
             },
             getNotes: function () {
-                return notesStorage.notes;
+                return this._notes.notesList;
             },
             clear: function (notesKey) {
                 domStorage.removeItem(notesKey);
             },
-            removeNote: function (createdOn) {
-                var key = notesStorage.getKeyFromStamp(createdOn);
-
-                delete notesStorage.notes[key];
-
+            getNote: function (id) {
+                return notes.notesList['_' + id];
+            },
+            removeNote: function (id) {
+                delete this._notes.notesList['_' + id];
                 domStorage[notesKey] = JSON.stringify(notesStorage.notes);
             },
-            getKeyFromStamp: function (tStamp) {
-                return '_' + tStamp.toString(16);
-            },
             isNotesEmpty: function () {
-                return angular.equals({}, notesStorage.notes);
+                return angular.equals({}, this._notes.notesList);
+            },
+            _generateId: function () {
+                var nextId = (this._notes.metadata.lastId || 0) + 1;
+                return this._notes.metadata.lastId = nextId;
             }
         };
 

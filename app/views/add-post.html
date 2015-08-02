@@ -8,6 +8,9 @@
                             Новая заметка
                         </legend>
                         <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Заголовок (необязательно)" ng-model="title"/>
+                        </div>
+                        <div class="form-group">
                             <textarea
                                     ng-model="noteText"
                                     ng-change="getRemainingSymbols()"
@@ -17,6 +20,7 @@
                                     maxlength="{{symbolsMax}}"
                                     ng-keydown="onKeydown($event)"
                                     cols="30"
+                                    placeholder="Текст заметки"
                                     rows="7"></textarea>
                         </div>
                         <div class="form-group">
@@ -33,7 +37,7 @@
                 <div class="well" ng-show="notesStorage.isNotesEmpty()">
                     У вас пока нет ни одной заметки
                 </div>
-                <ul class="notes__list" ng-repeat="(noteId, note) in notesStorage.notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
+                <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true | limitTo: 3 track by note.createdOn">
                     <li class="notes__i" ng-include="'app/views/partials/note-preview.html'">
                     </li>
                 </ul>

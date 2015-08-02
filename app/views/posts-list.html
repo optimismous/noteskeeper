@@ -1,11 +1,11 @@
 <div class="wrapper">
-    <div class="col-xs-7">
+    <div class="col-xs-7" ng-controller="PostsListCtrl">
         <h3>Ваши заметки</h3>
         <div class="notes">
             <div class="well" ng-show="notesStorage.isNotesEmpty()">
                 У вас пока нет ни одной заметки
             </div>
-            <ul class="notes__list" ng-repeat="(noteId, note) in notesStorage.notes | orderObjectBy: 'createdOn':true track by note.createdOn">
+            <ul class="notes__list" ng-repeat="(noteId, note) in notes | orderObjectBy: 'createdOn':true track by note.createdOn">
                 <li class="notes__i" ng-include="'app/views/partials/note-preview.html'">
                 </li>
             </ul>

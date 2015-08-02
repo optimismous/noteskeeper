@@ -9,11 +9,11 @@ angular.module('notesKeeper.addPost', ['ngRoute'])
         })
     }])
 
-    .controller('AddPostCtrl',
-        ['$rootScope',
-         '$scope',
-         'notesStorage',
-         function ($rootScope, $scope, notesStorage) {
+    .controller('AddPostCtrl', ['$rootScope', '$scope', 'notesStorage', function ($rootScope, $scope, notesStorage) {
+
+        $scope.notes = notesStorage.getNotes();
+
+        $scope.title = '';
 
         $scope.onKeydown = function (e) {
             // При нажатии ctrl+enter добавляем заметку
@@ -31,22 +31,18 @@ angular.module('notesKeeper.addPost', ['ngRoute'])
         $scope.addNote = function () {
             var text = $scope.noteText;
             var tStamp = Date.now();
-            var key = $rootScope.notesStorage.getKeyFromStamp(tStamp);
 
             if (!text || !text.trim()) return;
 
-            if (!$rootScope.notesStorage.notes[key]) {
-                $rootScope.notesStorage.putNote(
-                    key,
-                    {
-                        text: text,
-                        createdOn: tStamp
-                    }
-                );
-            } else {
-                alert('Флэш Гордон, подожди, пожалуйста, 1 микросекунду и попробуй снова.')
-            }
+            $rootScope.notesStorage.putNote(
+                {
+                    title: $scope.title.trim(),
+                    text: text,
+                    createdOn: tStamp
+                }
+            );
 
+            $scope.title = '';
             $scope.noteText = '';
             $scope.remainingSymbols = $scope.symbolsMax;
 

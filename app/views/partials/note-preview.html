@@ -3,9 +3,10 @@
         class="note-preview__remove glyphicon glyphicon-remove-sign"
         title="Удалить заметку"
         aria-hidden="true"
-        ng-click="notesStorage.removeNote(note.createdOn)"
+        ng-click="notesStorage.removeNote(note.id)"
     ></span>
     <div class="note-preview__content">
+        <a ng-href="{{'#post/' + note.id}}">{{note.title || 'Заметка #' + note.id}}</a>
         <p class="note-preview__text">
             {{note.text}}
         </p>

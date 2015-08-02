@@ -4,6 +4,7 @@ angular.module('notesKeeper', [
     'ngRoute',
     'notesKeeper.addPost',
     'notesKeeper.postsList',
+    'notesKeeper.singlePost',
     'notesKeeper.menu'
 ])
 

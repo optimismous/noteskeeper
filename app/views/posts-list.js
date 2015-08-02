@@ -6,4 +6,8 @@ angular.module('notesKeeper.postsList', ['ngRoute'])
         $routeProvider.when('/posts-list', {
             templateUrl: 'app/views/posts-list.html'
         })
+    }])
+
+    .controller('PostsListCtrl', ['$scope', 'notesStorage', function ($scope, notesStorage) {
+        $scope.notes = notesStorage.getNotes();
     }]);
