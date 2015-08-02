@@ -30,11 +30,18 @@
     margin-bottom: 20px;
 }
 
-.note-preview__remove {
+.note-preview__controls {
     float: left;
     margin-top: 4px;
     margin-right: 6px;
+}
+
+.note-preview__controls .glyphicon {
     cursor: pointer;
+}
+
+.note-preview__controls .glyphicon:hover {
+    text-decoration: none;
 }
 
 .note-preview__content {

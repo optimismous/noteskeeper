@@ -1,10 +1,14 @@
 <div class="well note-preview">
-    <span
-        class="note-preview__remove glyphicon glyphicon-remove-sign"
-        title="Удалить заметку"
-        aria-hidden="true"
-        ng-click="notesStorage.removeNote(note.id)"
-    ></span>
+    <div class="note-preview__controls">
+        <a ng-href="{{'#edit-post/' + note.id}}"
+           class="glyphicon glyphicon-pencil"
+           title="Редактировать заметку"></a><br />
+        <span
+            class="glyphicon glyphicon-remove-sign"
+            title="Удалить заметку"
+            ng-click="notesStorage.removeNote(note.id)"
+            ></span>
+    </div>
     <div class="note-preview__content">
         <a ng-href="{{'#post/' + note.id}}">{{note.title || 'Заметка #' + note.id}}</a>
         <p class="note-preview__text">

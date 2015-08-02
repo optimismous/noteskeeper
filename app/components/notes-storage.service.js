@@ -54,8 +54,20 @@ angular.module('notesKeeper')
                 var id = this._generateId();
                 this._notes.notesList['_' + id] = note || {};
                 this._notes.notesList['_' + id].id = id;
+                this._notes.notesList['_' + id].createdOn = Date.now();
                 domStorage[notesKey] = JSON.stringify(notesStorage._notes);
                 return true;
+            },
+            updateNote: function (id, note) {
+                var editedNote = this._notes.notesList['_' + id];
+
+                if (editedNote) {
+                    this._notes.notesList['_' + id].text = note.text;
+                    this._notes.notesList['_' + id].title = note.title;
+                    domStorage[notesKey] = JSON.stringify(notesStorage._notes);
+                } else {
+                    this.putNote(note);
+                }
             },
             getNotes: function () {
                 return this._notes.notesList;

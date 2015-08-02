@@ -7,13 +7,30 @@ angular.module('notesKeeper.addPost', ['ngRoute'])
             templateUrl: 'app/views/add-post.html',
             controller: 'AddPostCtrl'
         })
+        .when('/edit-post/:id', {
+            templateUrl: 'app/views/add-post.html',
+            controller: 'AddPostCtrl'
+        })
     }])
 
-    .controller('AddPostCtrl', ['$rootScope', '$scope', 'notesStorage', function ($rootScope, $scope, notesStorage) {
+    .controller('AddPostCtrl', ['$rootScope', '$scope', '$routeParams', '$location', 'notesStorage', function ($rootScope, $scope, $routeParams, $location, notesStorage) {
+
+        var id = $routeParams.id || null;
+        var editedNote;
+
+        if (id) {
+            editedNote = notesStorage.getNote(id);
+        }
+
+        if (editedNote) {
+            $scope.title = editedNote.title;
+            $scope.noteText = editedNote.text;
+        } else {
+            $scope.title = '';
+            $scope.noteText = '';
+        }
 
         $scope.notes = notesStorage.getNotes();
-
-        $scope.title = '';
 
         $scope.onKeydown = function (e) {
             // При нажатии ctrl+enter добавляем заметку
@@ -22,30 +39,36 @@ angular.module('notesKeeper.addPost', ['ngRoute'])
             }
         };
 
-        $scope.remainingSymbols = $scope.symbolsMax = 150;
+        $scope.symbolsMax = 150;
 
         $scope.getRemainingSymbols = function () {
-            $scope.remainingSymbols = $scope.symbolsMax - $scope.noteText.length;
+            return $scope.symbolsMax - $scope.noteText.length;
         };
 
         $scope.addNote = function () {
             var text = $scope.noteText;
-            var tStamp = Date.now();
 
             if (!text || !text.trim()) return;
 
-            $rootScope.notesStorage.putNote(
-                {
-                    title: $scope.title.trim(),
-                    text: text,
-                    createdOn: tStamp
-                }
-            );
-
-            $scope.title = '';
-            $scope.noteText = '';
-            $scope.remainingSymbols = $scope.symbolsMax;
-
+            if (!editedNote) {
+                $rootScope.notesStorage.putNote(
+                    {
+                        title: $scope.title.trim(),
+                        text: text
+                    }
+                );
+                $scope.title = '';
+                $scope.noteText = '';
+            } else {
+                $rootScope.notesStorage.updateNote(
+                    id,
+                    {
+                        title: $scope.title.trim(),
+                        text: text
+                    }
+                );
+                $location.path('/add-post')
+            }
         };
 
     }]);
